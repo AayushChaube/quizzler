@@ -43,8 +43,13 @@ class QuizBrain {
     if (_questionNumber < _questionBank.length - 1) {
       _questionNumber++;
     }
+  }
 
-    print(_questionNumber);
-    print(_questionBank.length);
+  bool isFinished() {
+    return _questionNumber == _questionBank.length - 1;
+  }
+
+  void reset() {
+    _questionNumber = 0;
   }
 }
