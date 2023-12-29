@@ -69,17 +69,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 // The user picked true
-                bool correctAnswer = quizBrain.getAnswerText();
-
-                if (correctAnswer == true) {
-                  debugPrint('You got the answer right!');
-                } else {
-                  debugPrint('You got the answer wrong!');
-                }
-
-                setState(() {
-                  quizBrain.nextQuestion();
-                });
+                checkAnswer(true);
               },
               child: const Text(
                 'True',
@@ -107,17 +97,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
-                bool correctAnswer = quizBrain.getAnswerText();
-
-                if (correctAnswer == false) {
-                  debugPrint('You got the answer right!');
-                } else {
-                  debugPrint('You got the answer wrong!');
-                }
-
-                setState(() {
-                  quizBrain.nextQuestion();
-                });
+                checkAnswer(false);
               },
             ),
           ),
@@ -127,6 +107,25 @@ class _QuizPageState extends State<QuizPage> {
         ),
       ],
     );
+  }
+
+  void checkAnswer(bool userPickedAnswer) {
+    bool correctAnswer = quizBrain.getAnswerText();
+
+    setState(() {
+      if (correctAnswer == userPickedAnswer) {
+        scoreKeeper.add(const Icon(
+          Icons.check,
+          color: Colors.green,
+        ));
+      } else {
+        scoreKeeper.add(const Icon(
+          Icons.close,
+          color: Colors.red,
+        ));
+      }
+      quizBrain.nextQuestion();
+    });
   }
 }
 
